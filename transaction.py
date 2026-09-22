@@ -17,8 +17,7 @@ def deposit_money():
 
     connection = get_connection()
     cursor = connection.cursor()
-
-    # Check whether account exists
+    
     cursor.execute(
         """
         SELECT account_id, balance
@@ -36,7 +35,6 @@ def deposit_money():
         connection.close()
         return
 
-    # Update account balance
     cursor.execute(
         """
         UPDATE accounts
@@ -46,7 +44,6 @@ def deposit_money():
         (amount, account_id)
     )
 
-    # Record deposit transaction
     cursor.execute(
         """
         INSERT INTO transactions
@@ -84,7 +81,6 @@ def withdraw_money():
     connection = get_connection()
     cursor = connection.cursor()
 
-    # Check account and current balance
     cursor.execute(
         """
         SELECT account_id, balance
@@ -104,7 +100,6 @@ def withdraw_money():
 
     current_balance = account[1]
 
-    # Check sufficient balance
     if amount > current_balance:
         print("\nInsufficient balance!")
         print("Current balance:", current_balance)
@@ -113,7 +108,6 @@ def withdraw_money():
         connection.close()
         return
 
-    # Update account balance
     cursor.execute(
         """
         UPDATE accounts
@@ -123,7 +117,6 @@ def withdraw_money():
         (amount, account_id)
     )
 
-    # Record withdrawal transaction
     cursor.execute(
         """
         INSERT INTO transactions
@@ -151,7 +144,6 @@ def transaction_history():
     connection = get_connection()
     cursor = connection.cursor()
 
-    # Check whether account exists
     cursor.execute(
         """
         SELECT account_id
@@ -169,7 +161,6 @@ def transaction_history():
         connection.close()
         return
 
-    # Get transaction history
     cursor.execute(
         """
         SELECT
