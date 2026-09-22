@@ -31,8 +31,7 @@ def create_account():
 
     connection = get_connection()
     cursor = connection.cursor()
-
-    # Check whether customer exists
+    
     cursor.execute(
         """
         SELECT customer_id
@@ -49,8 +48,7 @@ def create_account():
         cursor.close()
         connection.close()
         return
-
-    # Create account
+        
     cursor.execute(
         """
         INSERT INTO accounts
